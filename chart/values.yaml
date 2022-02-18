@@ -1,0 +1,4 @@
+image:
+  repository: ghcr.io/starcatmeow/flexpool_profit_exporter
+settings:
+  jobLabel: flexpool_profit

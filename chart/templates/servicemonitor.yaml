@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "flexpool-profit-exporter.fullname" . }}
+  labels:
+    {{- include "flexpool-profit-exporter.labels" . | nindent 4 }}
+spec:
+  endpoints:
+  - port: metrics
+  jobLabel: {{ .Values.settings.jobLabel }}
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:    
+    {{- include "flexpool-profit-exporter.selectorLabels" . | nindent 6 }}

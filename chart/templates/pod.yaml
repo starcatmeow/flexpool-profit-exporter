@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "flexpool-profit-exporter.fullname" . }}
+  labels:
+      {{- include "flexpool-profit-exporter.labels" . | nindent 4 }}
+spec:
+  containers:
+    - name: exporter
+      image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 9091
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 9091
+      readinessProbe:
+        httpGet:
+          path: /
+          port: 9091
